@@ -72,7 +72,7 @@ public class TbpersonaJpaController implements Serializable {
                 tbpersona = em.getReference(Tbpersona.class, id);
                 tbpersona.getIdtbpersona();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The tbpersona with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("La persona con id " + id + " no existe.", enfe);
             }
             em.remove(tbpersona);
             em.getTransaction().commit();
