@@ -4,7 +4,7 @@ import com.jhonatan.empleados.jpa.persistencia.Tbpersona;
 import com.jhonatan.empleados.jpa.persistencia.TbpersonaJpaController;
 
 public class TbPersonaDao {
-    
+
     private TbpersonaJpaController controller = new TbpersonaJpaController();
     private Tbpersona tbpersona = new Tbpersona();
     private String mensaje = "";
@@ -26,7 +26,7 @@ public class TbPersonaDao {
         }
         return mensaje;
     }
-    
+
     public String actualizarPersona(int idPersona, String nombres, String apellidos, int edad, String telefono) {
         try {
             tbpersona.setIdtbpersona(idPersona);
@@ -43,8 +43,15 @@ public class TbPersonaDao {
         }
         return mensaje;
     }
-    
-    public String eliminarPersona() {
+
+    public String eliminarPersona(int id) {
+        try {
+            controller.destroy(id);
+            mensaje = "eliminado persona correctamente ";
+        } catch (Exception e) {
+            mensaje = "no se pudo eliminar";
+            System.out.println("Error al eliminar " + e.getMessage());
+        }
         return mensaje;
     }
 }
