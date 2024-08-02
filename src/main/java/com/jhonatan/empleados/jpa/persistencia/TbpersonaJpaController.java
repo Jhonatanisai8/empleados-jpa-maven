@@ -51,7 +51,7 @@ public class TbpersonaJpaController implements Serializable {
             if (msg == null || msg.length() == 0) {
                 Integer id = tbpersona.getIdtbpersona();
                 if (findTbpersona(id) == null) {
-                    throw new NonexistentEntityException("The tbpersona with id " + id + " no longer exists.");
+                    throw new NonexistentEntityException("La persona con id " + id + " no existe.");
                 }
             }
             throw ex;
