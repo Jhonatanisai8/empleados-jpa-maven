@@ -1,8 +1,12 @@
 package com.jhonatan.empleados.jpa.iu;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
+import com.jhonatan.empleados.jpa.logica.TbPersonaDao;
+import javax.swing.JOptionPane;
 
 public class frmPersona extends javax.swing.JFrame {
+    
+    private TbPersonaDao tbPersonaDao = new TbPersonaDao();
     
     public frmPersona() {
         initComponents();
@@ -10,9 +14,9 @@ public class frmPersona extends javax.swing.JFrame {
         this.setTitle("Formulario de Persona");
         this.setResizable(false);
         FlatMaterialLighterIJTheme.setup();
-
+        this.mostrarCampo(false);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -251,7 +255,7 @@ public class frmPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
+        this.insertarPersona();
     }//GEN-LAST:event_btnGuardarActionPerformed
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -302,4 +306,27 @@ public class frmPersona extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
+    private void insertarPersona() {
+        String nombres = txtNombres.getText();
+        String apellidos = txtApellidos.getText();
+        int edad = Integer.parseInt(txtEdad.getText());
+        String telefono = txtTelefono.getText();
+        String insertar = tbPersonaDao.insertarPersona(nombres, apellidos, WIDTH, telefono);
+        JOptionPane.showMessageDialog(rootPane, insertar.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+        this.limpiarCampos();
+    }
+    
+    private void limpiarCampos() {
+        txtApellidos.setText(null);
+        txtEdad.setText(null);
+        txtId.setText(null);
+        txtNombres.setText(null);
+        txtTelefono.setText(null);
+    }
+    
+    private void mostrarCampo(boolean opcion) {
+        txtId.setEnabled(opcion);
+        jLabel1.setEnabled(opcion);
+    }
 }
