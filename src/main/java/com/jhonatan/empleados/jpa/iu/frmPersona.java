@@ -312,7 +312,7 @@ public class frmPersona extends javax.swing.JFrame {
         String apellidos = txtApellidos.getText();
         int edad = Integer.parseInt(txtEdad.getText());
         String telefono = txtTelefono.getText();
-        String insertar = tbPersonaDao.insertarPersona(nombres, apellidos, WIDTH, telefono);
+        String insertar = tbPersonaDao.insertarPersona(nombres, apellidos, edad, telefono);
         JOptionPane.showMessageDialog(rootPane, insertar.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         this.limpiarCampos();
     }
