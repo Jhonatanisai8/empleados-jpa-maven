@@ -262,7 +262,12 @@ public class frmPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTelefonoActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        this.modificar();
+        String mensaje = this.validarCampos();
+        if (mensaje.equals("")) {
+            this.modificar();
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor verificar el campo " + mensaje, "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -366,14 +371,19 @@ public class frmPersona extends javax.swing.JFrame {
     }
 
     private void modificar() {
-        int id = Integer.parseInt(txtId.getText());
-        String nombres = txtNombres.getText();
-        String apellidos = txtApellidos.getText();
-        int edad = Integer.parseInt(txtEdad.getText());
-        String telefono = txtTelefono.getText();
-        String modificar = tbPersonaDao.actualizarPersona(id, nombres, apellidos, edad, telefono);
-        JOptionPane.showMessageDialog(rootPane, modificar.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+        if (!txtId.getText().isBlank()) {
+            int id = Integer.parseInt(txtId.getText());
+            String nombres = txtNombres.getText();
+            String apellidos = txtApellidos.getText();
+            int edad = Integer.parseInt(txtEdad.getText());
+            String telefono = txtTelefono.getText();
+            String modificar = tbPersonaDao.actualizarPersona(id, nombres, apellidos, edad, telefono);
+            JOptionPane.showMessageDialog(rootPane, modificar.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Por favor verificar el campo del ID", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+        }
         this.limpiarCampos();
+
     }
 
     private String validarCampos() {
