@@ -5,9 +5,9 @@ import com.jhonatan.empleados.jpa.logica.TbPersonaDao;
 import javax.swing.JOptionPane;
 
 public class frmPersona extends javax.swing.JFrame {
-    
+
     private TbPersonaDao tbPersonaDao = new TbPersonaDao();
-    
+
     public frmPersona() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -16,7 +16,7 @@ public class frmPersona extends javax.swing.JFrame {
         FlatMaterialLighterIJTheme.setup();
         this.mostrarCampo(false);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -58,6 +58,11 @@ public class frmPersona extends javax.swing.JFrame {
                 txtIdActionPerformed(evt);
             }
         });
+        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdKeyTyped(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(236, 239, 243));
@@ -80,6 +85,11 @@ public class frmPersona extends javax.swing.JFrame {
         txtEdad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEdadActionPerformed(evt);
+            }
+        });
+        txtEdad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEdadKeyTyped(evt);
             }
         });
 
@@ -257,6 +267,17 @@ public class frmPersona extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         this.insertarPersona();
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
+        ////
+    }//GEN-LAST:event_txtIdKeyTyped
+
+    private void txtEdadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEdadKeyTyped
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            JOptionPane.showMessageDialog(null, "Solo Ingresar Números", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_txtEdadKeyTyped
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -316,7 +337,7 @@ public class frmPersona extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, insertar.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         this.limpiarCampos();
     }
-    
+
     private void limpiarCampos() {
         txtApellidos.setText(null);
         txtEdad.setText(null);
@@ -324,7 +345,7 @@ public class frmPersona extends javax.swing.JFrame {
         txtNombres.setText(null);
         txtTelefono.setText(null);
     }
-    
+
     private void mostrarCampo(boolean opcion) {
         txtId.setEnabled(opcion);
         jLabel1.setEnabled(opcion);
