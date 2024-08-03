@@ -5,9 +5,9 @@ import com.jhonatan.empleados.jpa.logica.TbPersonaDao;
 import javax.swing.JOptionPane;
 
 public class frmPersona extends javax.swing.JFrame {
-
+    
     private TbPersonaDao tbPersonaDao = new TbPersonaDao();
-
+    
     public frmPersona() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -16,7 +16,7 @@ public class frmPersona extends javax.swing.JFrame {
         FlatMaterialLighterIJTheme.setup();
         this.mostrarCampo(false);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -271,7 +271,7 @@ public class frmPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        this.eliminarPersona();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -284,7 +284,10 @@ public class frmPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
-        ////
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            JOptionPane.showMessageDialog(null, "Solo Ingresar Números", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_txtIdKeyTyped
 
     private void txtEdadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEdadKeyTyped
@@ -356,7 +359,7 @@ public class frmPersona extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, insertar.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         this.limpiarCampos();
     }
-
+    
     private void limpiarCampos() {
         txtApellidos.setText(null);
         txtEdad.setText(null);
@@ -364,12 +367,12 @@ public class frmPersona extends javax.swing.JFrame {
         txtNombres.setText(null);
         txtTelefono.setText(null);
     }
-
+    
     private void mostrarCampo(boolean opcion) {
         txtId.setEnabled(opcion);
         jLabel1.setEnabled(opcion);
     }
-
+    
     private void modificar() {
         if (!txtId.getText().isBlank()) {
             int id = Integer.parseInt(txtId.getText());
@@ -379,19 +382,19 @@ public class frmPersona extends javax.swing.JFrame {
             String telefono = txtTelefono.getText();
             String modificar = tbPersonaDao.actualizarPersona(id, nombres, apellidos, edad, telefono);
             JOptionPane.showMessageDialog(rootPane, modificar.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+            this.limpiarCampos();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Por favor verificar el campo del ID", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         }
-        this.limpiarCampos();
-
+        
     }
-
+    
     private String validarCampos() {
         if (txtNombres.getText().isEmpty()) {
             txtNombres.requestFocus();
             return "Nombre.";
         }
-
+        
         if (txtApellidos.getText().isEmpty()) {
             txtApellidos.requestFocus();
             return "Apellido.";
@@ -400,7 +403,7 @@ public class frmPersona extends javax.swing.JFrame {
             txtEdad.requestFocus();
             return "Edad.";
         }
-
+        
         try {
             Integer.parseInt(txtTelefono.getText());
             if (txtTelefono.getText().isEmpty() || txtTelefono.getText().length() != 9) {
@@ -410,7 +413,33 @@ public class frmPersona extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             return "Telefono solo ingresar Números.";
         }
-
+        
         return "";
+    }
+    
+    private void eliminarPersona() {
+        String mensaje = "";
+        int id = 0;
+        boolean bandera = false;
+        if (txtApellidos.getText().isBlank()) {
+            bandera = true;
+        }
+        if (!txtId.getText().isBlank()) {
+            try {
+                id = Integer.parseInt(txtId.getText());
+            } catch (NumberFormatException e) {
+                bandera = true;
+            }
+        }
+        
+        if (!bandera) {
+            JOptionPane.showMessageDialog(rootPane, "Por ingresar un ID valido.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            id = Integer.parseInt(txtId.getText());
+            String eliminarPersona = tbPersonaDao.eliminarPersona(id);
+            JOptionPane.showMessageDialog(rootPane, eliminarPersona.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+            this.limpiarCampos();
+        }
+        
     }
 }
