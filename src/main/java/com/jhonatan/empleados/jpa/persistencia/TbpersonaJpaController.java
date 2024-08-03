@@ -44,16 +44,14 @@ public class TbpersonaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            tbpersona = em.merge(tbpersona);
-            em.getTransaction().commit();
-        } catch (Exception ex) {
-            String msg = ex.getLocalizedMessage();
-            if (msg == null || msg.length() == 0) {
-                Integer id = tbpersona.getIdtbpersona();
-                if (findTbpersona(id) == null) {
-                    throw new NonexistentEntityException("La persona con id " + id + " no existe.");
-                }
+            Integer id = tbpersona.getIdtbpersona();
+            if (findTbpersona(id) == null) {
+                throw new NonexistentEntityException("La persona con id " + id + " no existe.");
+            } else {
+                tbpersona = em.merge(tbpersona);
+                em.getTransaction().commit();
             }
+        } catch (Exception ex) {
             throw ex;
         } finally {
             if (em != null) {

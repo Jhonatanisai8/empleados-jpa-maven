@@ -5,9 +5,9 @@ import com.jhonatan.empleados.jpa.logica.TbPersonaDao;
 import javax.swing.JOptionPane;
 
 public class frmPersona extends javax.swing.JFrame {
-
+    
     private TbPersonaDao tbPersonaDao = new TbPersonaDao();
-
+    
     public frmPersona() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -16,7 +16,7 @@ public class frmPersona extends javax.swing.JFrame {
         FlatMaterialLighterIJTheme.setup();
         this.mostrarCampo(false);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -53,6 +53,11 @@ public class frmPersona extends javax.swing.JFrame {
 
         txtId.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
         txtId.setForeground(new java.awt.Color(52, 55, 58));
+        txtId.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtIdMouseClicked(evt);
+            }
+        });
         txtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdActionPerformed(evt);
@@ -130,7 +135,7 @@ public class frmPersona extends javax.swing.JFrame {
         btnModificar.setBackground(new java.awt.Color(133, 142, 156));
         btnModificar.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
         btnModificar.setForeground(new java.awt.Color(236, 239, 243));
-        btnModificar.setText("Edidtar");
+        btnModificar.setText("Editar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
@@ -257,7 +262,7 @@ public class frmPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTelefonoActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+        this.modificar();
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -278,6 +283,10 @@ public class frmPersona extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Solo Ingresar Números", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_txtEdadKeyTyped
+
+    private void txtIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIdMouseClicked
+        this.mostrarCampo(true);
+    }//GEN-LAST:event_txtIdMouseClicked
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -337,7 +346,7 @@ public class frmPersona extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, insertar.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         this.limpiarCampos();
     }
-
+    
     private void limpiarCampos() {
         txtApellidos.setText(null);
         txtEdad.setText(null);
@@ -345,9 +354,20 @@ public class frmPersona extends javax.swing.JFrame {
         txtNombres.setText(null);
         txtTelefono.setText(null);
     }
-
+    
     private void mostrarCampo(boolean opcion) {
         txtId.setEnabled(opcion);
         jLabel1.setEnabled(opcion);
+    }
+    
+    private void modificar() {
+        int id = Integer.parseInt(txtId.getText());
+        String nombres = txtNombres.getText();
+        String apellidos = txtApellidos.getText();
+        int edad = Integer.parseInt(txtEdad.getText());
+        String telefono = txtTelefono.getText();
+        String modificar = tbPersonaDao.actualizarPersona(id, nombres, apellidos, edad, telefono);
+        JOptionPane.showMessageDialog(rootPane, modificar.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+        this.limpiarCampos();
     }
 }
