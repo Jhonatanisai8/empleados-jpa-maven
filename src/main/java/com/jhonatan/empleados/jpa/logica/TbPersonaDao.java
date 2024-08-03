@@ -39,7 +39,7 @@ public class TbPersonaDao {
             mensaje = "se actualizo la persona correctamente";
         } catch (Exception e) {
             System.out.println("error al momento de actualizar: " + e.getMessage());
-            mensaje = "Ocurrio un error al actualizar la persona: ";
+            mensaje = "No se puede actualizar la informacion. \n" + e.getMessage();
         }
         return mensaje;
     }

@@ -5,9 +5,9 @@ import com.jhonatan.empleados.jpa.logica.TbPersonaDao;
 import javax.swing.JOptionPane;
 
 public class frmPersona extends javax.swing.JFrame {
-    
+
     private TbPersonaDao tbPersonaDao = new TbPersonaDao();
-    
+
     public frmPersona() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -16,7 +16,7 @@ public class frmPersona extends javax.swing.JFrame {
         FlatMaterialLighterIJTheme.setup();
         this.mostrarCampo(false);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -270,7 +270,12 @@ public class frmPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        this.insertarPersona();
+        String mensaje = this.validarCampos();
+        if (mensaje.equals("")) {
+            this.insertarPersona();
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor verificar el campo " + mensaje, "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
@@ -346,7 +351,7 @@ public class frmPersona extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, insertar.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         this.limpiarCampos();
     }
-    
+
     private void limpiarCampos() {
         txtApellidos.setText(null);
         txtEdad.setText(null);
@@ -354,12 +359,12 @@ public class frmPersona extends javax.swing.JFrame {
         txtNombres.setText(null);
         txtTelefono.setText(null);
     }
-    
+
     private void mostrarCampo(boolean opcion) {
         txtId.setEnabled(opcion);
         jLabel1.setEnabled(opcion);
     }
-    
+
     private void modificar() {
         int id = Integer.parseInt(txtId.getText());
         String nombres = txtNombres.getText();
@@ -369,5 +374,33 @@ public class frmPersona extends javax.swing.JFrame {
         String modificar = tbPersonaDao.actualizarPersona(id, nombres, apellidos, edad, telefono);
         JOptionPane.showMessageDialog(rootPane, modificar.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         this.limpiarCampos();
+    }
+
+    private String validarCampos() {
+        if (txtNombres.getText().isEmpty()) {
+            txtNombres.requestFocus();
+            return "Nombre.";
+        }
+
+        if (txtApellidos.getText().isEmpty()) {
+            txtApellidos.requestFocus();
+            return "Apellido.";
+        }
+        if (txtEdad.getText().isEmpty() || Integer.parseInt(txtEdad.getText()) <= 0 || Integer.parseInt(txtEdad.getText()) > 999999999) {
+            txtEdad.requestFocus();
+            return "Edad.";
+        }
+
+        try {
+            Integer.parseInt(txtTelefono.getText());
+            if (txtTelefono.getText().isEmpty() || txtTelefono.getText().length() != 9) {
+                txtTelefono.requestFocus();
+                return "Telefono";
+            }
+        } catch (NumberFormatException e) {
+            return "Telefono solo ingresar Números.";
+        }
+
+        return "";
     }
 }
