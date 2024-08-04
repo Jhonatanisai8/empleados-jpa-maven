@@ -5,9 +5,9 @@ import com.jhonatan.empleados.jpa.logica.TbPersonaDao;
 import javax.swing.JOptionPane;
 
 public class frmPersona extends javax.swing.JFrame {
-    
+
     private TbPersonaDao tbPersonaDao = new TbPersonaDao();
-    
+
     public frmPersona() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -15,8 +15,9 @@ public class frmPersona extends javax.swing.JFrame {
         this.setResizable(false);
         FlatMaterialLighterIJTheme.setup();
         this.mostrarCampo(false);
+        this.mostrarTabla();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -255,10 +256,11 @@ public class frmPersona extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -338,30 +340,7 @@ public class frmPersona extends javax.swing.JFrame {
         this.mostrarCampo(true);
     }//GEN-LAST:event_txtIdMouseClicked
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmPersona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmPersona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmPersona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmPersona.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+        FlatMaterialLighterIJTheme.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new frmPersona().setVisible(true);
@@ -398,8 +377,9 @@ public class frmPersona extends javax.swing.JFrame {
         String insertar = tbPersonaDao.insertarPersona(nombres, apellidos, edad, telefono);
         JOptionPane.showMessageDialog(rootPane, insertar.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         this.limpiarCampos();
+        this.mostrarTabla();
     }
-    
+
     private void limpiarCampos() {
         txtApellidos.setText(null);
         txtEdad.setText(null);
@@ -407,12 +387,12 @@ public class frmPersona extends javax.swing.JFrame {
         txtNombres.setText(null);
         txtTelefono.setText(null);
     }
-    
+
     private void mostrarCampo(boolean opcion) {
         txtId.setEnabled(opcion);
         jLabel1.setEnabled(opcion);
     }
-    
+
     private void modificar() {
         if (!txtId.getText().isBlank()) {
             int id = Integer.parseInt(txtId.getText());
@@ -423,18 +403,19 @@ public class frmPersona extends javax.swing.JFrame {
             String modificar = tbPersonaDao.actualizarPersona(id, nombres, apellidos, edad, telefono);
             JOptionPane.showMessageDialog(rootPane, modificar.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
             this.limpiarCampos();
+            this.mostrarTabla();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Por favor verificar el campo del ID", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         }
-        
+
     }
-    
+
     private String validarCampos() {
         if (txtNombres.getText().isEmpty()) {
             txtNombres.requestFocus();
             return "Nombre.";
         }
-        
+
         if (txtApellidos.getText().isEmpty()) {
             txtApellidos.requestFocus();
             return "Apellido.";
@@ -443,7 +424,7 @@ public class frmPersona extends javax.swing.JFrame {
             txtEdad.requestFocus();
             return "Edad.";
         }
-        
+
         try {
             Integer.parseInt(txtTelefono.getText());
             if (txtTelefono.getText().isEmpty() || txtTelefono.getText().length() != 9) {
@@ -453,10 +434,10 @@ public class frmPersona extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             return "Telefono solo ingresar Números.";
         }
-        
+
         return "";
     }
-    
+
     private void eliminarPersona() {
         String mensaje = "";
         int id = 0;
@@ -471,7 +452,7 @@ public class frmPersona extends javax.swing.JFrame {
                 bandera = true;
             }
         }
-        
+
         if (!bandera) {
             JOptionPane.showMessageDialog(rootPane, "Por ingresar un ID valido.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -479,7 +460,12 @@ public class frmPersona extends javax.swing.JFrame {
             String eliminarPersona = tbPersonaDao.eliminarPersona(id);
             JOptionPane.showMessageDialog(rootPane, eliminarPersona.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
             this.limpiarCampos();
+            this.mostrarTabla();
         }
-        
+
+    }
+
+    private void mostrarTabla() {
+        tbPersonaDao.listarPersona(btlPersonas);
     }
 }
