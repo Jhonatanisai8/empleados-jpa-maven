@@ -2,6 +2,9 @@ package com.jhonatan.empleados.jpa.logica;
 
 import com.jhonatan.empleados.jpa.persistencia.Tbpersona;
 import com.jhonatan.empleados.jpa.persistencia.TbpersonaJpaController;
+import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class TbPersonaDao {
 
@@ -53,5 +56,26 @@ public class TbPersonaDao {
             System.out.println("Error al eliminar " + e.getMessage());
         }
         return mensaje;
+    }
+
+    public void listarPersona(JTable tblPersonas) {
+        DefaultTableModel model;
+        String[] titulos = {"ID", "NOMBRES", "APELLIDOS", "EDAD", "TELEFONO"};
+        model = new DefaultTableModel(null, titulos);
+        List<Tbpersona> listaPersona = controller.findTbpersonaEntities();
+        String[] datosPersona = new String[titulos.length];
+        for (Tbpersona persona : listaPersona) {
+            datosPersona[0] = persona.getIdtbpersona() + "";
+            datosPersona[1] = persona.getNombres();
+            datosPersona[2] = persona.getApellidos();
+            datosPersona[3] = persona.getEdad() + "";
+            datosPersona[4] = persona.getTelefono();
+
+            /*la guardamos al arreglo*/
+            model.addRow(datosPersona);
+        }
+
+        /*le asiganamos a la tabla el modelo*/
+        tblPersonas.setModel(model);
     }
 }
