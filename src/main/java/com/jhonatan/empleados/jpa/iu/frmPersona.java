@@ -39,7 +39,7 @@ public class frmPersona extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        btlPersonas = new javax.swing.JTable();
+        tblPersonas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -158,7 +158,7 @@ public class frmPersona extends javax.swing.JFrame {
 
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
 
-        btlPersonas.setModel(new javax.swing.table.DefaultTableModel(
+        tblPersonas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -166,7 +166,12 @@ public class frmPersona extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(btlPersonas);
+        tblPersonas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPersonasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblPersonas);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -339,6 +344,13 @@ public class frmPersona extends javax.swing.JFrame {
     private void txtIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIdMouseClicked
         this.mostrarCampo(true);
     }//GEN-LAST:event_txtIdMouseClicked
+
+    private void tblPersonasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPersonasMouseClicked
+        this.mostrarCampo(true);
+        int fila = tblPersonas.getSelectedRow();
+        this.seleccionarFila(fila);
+
+    }//GEN-LAST:event_tblPersonasMouseClicked
     public static void main(String args[]) {
         FlatMaterialLighterIJTheme.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -349,7 +361,6 @@ public class frmPersona extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable btlPersonas;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnModificar;
@@ -362,6 +373,7 @@ public class frmPersona extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblPersonas;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtEdad;
     private javax.swing.JTextField txtId;
@@ -466,6 +478,14 @@ public class frmPersona extends javax.swing.JFrame {
     }
 
     private void mostrarTabla() {
-        tbPersonaDao.listarPersona(btlPersonas);
+        tbPersonaDao.listarPersona(tblPersonas);
+    }
+
+    private void seleccionarFila(int fila) {
+        txtId.setText(tblPersonas.getValueAt(fila, 0) + "");
+        txtNombres.setText(tblPersonas.getValueAt(fila, 1).toString());
+        txtApellidos.setText(tblPersonas.getValueAt(fila, 2).toString());
+        txtEdad.setText(tblPersonas.getValueAt(fila, 3) + "");
+        txtTelefono.setText(tblPersonas.getValueAt(fila, 4).toString());
     }
 }
