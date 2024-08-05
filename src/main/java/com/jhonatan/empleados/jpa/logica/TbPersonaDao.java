@@ -3,6 +3,7 @@ package com.jhonatan.empleados.jpa.logica;
 import com.jhonatan.empleados.jpa.persistencia.Tbpersona;
 import com.jhonatan.empleados.jpa.persistencia.TbpersonaJpaController;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -78,4 +79,9 @@ public class TbPersonaDao {
         /*le asiganamos a la tabla el modelo*/
         tblPersonas.setModel(model);
     }
+//
+//    public List<Tbpersona> buscarPersona() {
+//        Tbpersona tbj;
+//        EntityManager ds;
+//    }
 }
