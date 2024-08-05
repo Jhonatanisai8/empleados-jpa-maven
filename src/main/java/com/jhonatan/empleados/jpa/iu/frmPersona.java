@@ -5,9 +5,9 @@ import com.jhonatan.empleados.jpa.logica.TbPersonaDao;
 import javax.swing.JOptionPane;
 
 public class frmPersona extends javax.swing.JFrame {
-
+    
     private TbPersonaDao tbPersonaDao = new TbPersonaDao();
-
+    
     public frmPersona() {
         initComponents();
         FlatMaterialLighterIJTheme.setup();
@@ -16,9 +16,9 @@ public class frmPersona extends javax.swing.JFrame {
         //this.setResizable(false);
         this.mostrarCampo(false);
         this.mostrarTabla("");
-
+        
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -84,6 +84,11 @@ public class frmPersona extends javax.swing.JFrame {
         txtNombres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombresActionPerformed(evt);
+            }
+        });
+        txtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombresKeyReleased(evt);
             }
         });
 
@@ -359,10 +364,14 @@ public class frmPersona extends javax.swing.JFrame {
     private void btnLimpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarCamposActionPerformed
         this.limpiarCampos();
     }//GEN-LAST:event_btnLimpiarCamposActionPerformed
+
+    private void txtNombresKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombresKeyReleased
+        this.mostrarTabla(txtNombres.getText());
+    }//GEN-LAST:event_txtNombresKeyReleased
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         FlatMaterialLighterIJTheme.setup();
-
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new frmPersona().setVisible(true);
@@ -402,7 +411,7 @@ public class frmPersona extends javax.swing.JFrame {
         this.limpiarCampos();
         this.mostrarTabla("");
     }
-
+    
     private void limpiarCampos() {
         txtApellidos.setText(null);
         txtEdad.setText(null);
@@ -410,12 +419,12 @@ public class frmPersona extends javax.swing.JFrame {
         txtNombres.setText(null);
         txtTelefono.setText(null);
     }
-
+    
     private void mostrarCampo(boolean opcion) {
         txtId.setEnabled(opcion);
         jLabel1.setEnabled(opcion);
     }
-
+    
     private void modificar() {
         if (!txtId.getText().isBlank()) {
             int id = Integer.parseInt(txtId.getText());
@@ -430,15 +439,15 @@ public class frmPersona extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, "Por favor verificar el campo del ID", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         }
-
+        
     }
-
+    
     private String validarCampos() {
         if (txtNombres.getText().isEmpty()) {
             txtNombres.requestFocus();
             return "Nombre.";
         }
-
+        
         if (txtApellidos.getText().isEmpty()) {
             txtApellidos.requestFocus();
             return "Apellido.";
@@ -447,7 +456,7 @@ public class frmPersona extends javax.swing.JFrame {
             txtEdad.requestFocus();
             return "Edad.";
         }
-
+        
         try {
             Integer.parseInt(txtTelefono.getText());
             if (txtTelefono.getText().isEmpty() || txtTelefono.getText().length() != 9) {
@@ -457,10 +466,10 @@ public class frmPersona extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             return "Telefono solo ingresar Números.";
         }
-
+        
         return "";
     }
-
+    
     private void eliminarPersona() {
         String mensaje = "";
         int id = 0;
@@ -475,7 +484,7 @@ public class frmPersona extends javax.swing.JFrame {
                 bandera = true;
             }
         }
-
+        
         if (!bandera) {
             JOptionPane.showMessageDialog(rootPane, "Por ingresar un ID valido.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -485,13 +494,13 @@ public class frmPersona extends javax.swing.JFrame {
             this.limpiarCampos();
             this.mostrarTabla("");
         }
-
+        
     }
-
+    
     private void mostrarTabla(String nombres) {
         tbPersonaDao.listarPersona(jTable1, nombres);
     }
-
+    
     private void seleccionarFila(int fila) {
         txtId.setText(jTable1.getValueAt(fila, 0) + "");
         txtNombres.setText(jTable1.getValueAt(fila, 1).toString());
