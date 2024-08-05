@@ -4,6 +4,7 @@ import com.jhonatan.empleados.jpa.persistencia.Tbpersona;
 import com.jhonatan.empleados.jpa.persistencia.TbpersonaJpaController;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -59,11 +60,11 @@ public class TbPersonaDao {
         return mensaje;
     }
 
-    public void listarPersona(JTable tblPersonas) {
+    public void listarPersona(JTable tblPersonas, String nombres) {
         DefaultTableModel model;
         String[] titulos = {"ID", "NOMBRES", "APELLIDOS", "EDAD", "TELEFONO"};
         model = new DefaultTableModel(null, titulos);
-        List<Tbpersona> listaPersona = controller.findTbpersonaEntities();
+        List<Tbpersona> listaPersona = buscarPersona(nombres);
         String[] datosPersona = new String[titulos.length];
         for (Tbpersona persona : listaPersona) {
             datosPersona[0] = persona.getIdtbpersona() + "";
@@ -79,9 +80,14 @@ public class TbPersonaDao {
         /*le asiganamos a la tabla el modelo*/
         tblPersonas.setModel(model);
     }
-//
-//    public List<Tbpersona> buscarPersona() {
-//        Tbpersona tbj;
-//        EntityManager ds;
-//    }
+
+    private List<Tbpersona> buscarPersona(String nombres) {
+        Tbpersona tbpersona;
+        EntityManager em = controller.getEntityManager();
+        Query query = em.createQuery("SELECT p FROM  Tbpersona p WHERE p.nombres LIKE: nombres");
+        query.setParameter("nombres", nombres + "%");
+
+        List<Tbpersona> lista = query.getResultList();
+        return lista;
+    }
 }
