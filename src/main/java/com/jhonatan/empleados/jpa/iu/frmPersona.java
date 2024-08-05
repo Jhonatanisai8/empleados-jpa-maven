@@ -15,7 +15,7 @@ public class frmPersona extends javax.swing.JFrame {
         this.setTitle("Formulario de Persona");
         //this.setResizable(false);
         this.mostrarCampo(false);
-        this.mostrarTabla();
+        this.mostrarTabla("");
 
     }
 
@@ -361,11 +361,8 @@ public class frmPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarCamposActionPerformed
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        try {
-            FlatMaterialLighterIJTheme.setup();
-        } catch (Exception ex) {
-            System.err.println("Failed to initialize LaF");
-        }
+        FlatMaterialLighterIJTheme.setup();
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new frmPersona().setVisible(true);
@@ -403,7 +400,7 @@ public class frmPersona extends javax.swing.JFrame {
         String insertar = tbPersonaDao.insertarPersona(nombres, apellidos, edad, telefono);
         JOptionPane.showMessageDialog(rootPane, insertar.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         this.limpiarCampos();
-        this.mostrarTabla();
+        this.mostrarTabla("");
     }
 
     private void limpiarCampos() {
@@ -429,7 +426,7 @@ public class frmPersona extends javax.swing.JFrame {
             String modificar = tbPersonaDao.actualizarPersona(id, nombres, apellidos, edad, telefono);
             JOptionPane.showMessageDialog(rootPane, modificar.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
             this.limpiarCampos();
-            this.mostrarTabla();
+            this.mostrarTabla("");
         } else {
             JOptionPane.showMessageDialog(rootPane, "Por favor verificar el campo del ID", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -486,13 +483,13 @@ public class frmPersona extends javax.swing.JFrame {
             String eliminarPersona = tbPersonaDao.eliminarPersona(id);
             JOptionPane.showMessageDialog(rootPane, eliminarPersona.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
             this.limpiarCampos();
-            this.mostrarTabla();
+            this.mostrarTabla("");
         }
 
     }
 
-    private void mostrarTabla() {
-        tbPersonaDao.listarPersona(jTable1);
+    private void mostrarTabla(String nombres) {
+        tbPersonaDao.listarPersona(jTable1, nombres);
     }
 
     private void seleccionarFila(int fila) {

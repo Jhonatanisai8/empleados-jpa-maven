@@ -82,12 +82,12 @@ public class TbPersonaDao {
     }
 
     private List<Tbpersona> buscarPersona(String nombres) {
-        Tbpersona tbpersona;
         EntityManager em = controller.getEntityManager();
-        Query query = em.createQuery("SELECT p FROM  Tbpersona p WHERE p.nombres LIKE: nombres");
-        query.setParameter("nombres", nombres + "%");
+        Query query = em.createQuery("SELECT p FROM Tbpersona p WHERE p.nombres LIKE :nombres");
+        query.setParameter("nombres", "%" + nombres + "%");
 
         List<Tbpersona> lista = query.getResultList();
         return lista;
     }
+
 }
