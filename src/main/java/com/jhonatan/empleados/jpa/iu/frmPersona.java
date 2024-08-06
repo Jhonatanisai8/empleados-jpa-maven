@@ -2,12 +2,13 @@ package com.jhonatan.empleados.jpa.iu;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
 import com.jhonatan.empleados.jpa.logica.TbPersonaDao;
+import com.jhonatan.empleados.jpa.persistencia.Tbpersona;
 import javax.swing.JOptionPane;
 
 public class frmPersona extends javax.swing.JFrame {
-    
+
     private TbPersonaDao tbPersonaDao = new TbPersonaDao();
-    
+
     public frmPersona() {
         initComponents();
         FlatMaterialLighterIJTheme.setup();
@@ -16,9 +17,9 @@ public class frmPersona extends javax.swing.JFrame {
         //this.setResizable(false);
         this.mostrarCampo(false);
         this.mostrarTabla("");
-        
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -43,6 +44,7 @@ public class frmPersona extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnEliminar1 = new javax.swing.JButton();
+        btnBuscarId = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -217,6 +219,16 @@ public class frmPersona extends javax.swing.JFrame {
             }
         });
 
+        btnBuscarId.setBackground(new java.awt.Color(133, 142, 156));
+        btnBuscarId.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        btnBuscarId.setForeground(new java.awt.Color(236, 239, 243));
+        btnBuscarId.setText("Buscar");
+        btnBuscarId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarIdActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -241,12 +253,15 @@ public class frmPersona extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtApellidos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                    .addComponent(txtId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                                                    .addComponent(txtNombres, javax.swing.GroupLayout.Alignment.LEADING))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(btnEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(btnEliminar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(btnBuscarId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                         .addComponent(txtEdad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -283,7 +298,9 @@ public class frmPersona extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnBuscarId))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -397,12 +414,16 @@ public class frmPersona extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int fila = jTable1.getSelectedRow();
         this.seleccionarFila(fila);
-        this.mostrarTabla("");  
+        this.mostrarTabla("");
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void btnBuscarIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarIdActionPerformed
+        this.buscarPorIdPersona();
+    }//GEN-LAST:event_btnBuscarIdActionPerformed
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         FlatMaterialLighterIJTheme.setup();
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new frmPersona().setVisible(true);
@@ -411,6 +432,7 @@ public class frmPersona extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarId;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEliminar1;
     private javax.swing.JButton btnGuardar;
@@ -443,7 +465,7 @@ public class frmPersona extends javax.swing.JFrame {
         this.limpiarCampos();
         this.mostrarTabla("");
     }
-    
+
     private void limpiarCampos() {
         txtApellidos.setText(null);
         txtEdad.setText(null);
@@ -451,12 +473,12 @@ public class frmPersona extends javax.swing.JFrame {
         txtNombres.setText(null);
         txtTelefono.setText(null);
     }
-    
+
     private void mostrarCampo(boolean opcion) {
         txtId.setEnabled(opcion);
         jLabel1.setEnabled(opcion);
     }
-    
+
     private void modificar() {
         if (!txtId.getText().isBlank()) {
             int id = Integer.parseInt(txtId.getText());
@@ -471,15 +493,15 @@ public class frmPersona extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, "Por favor verificar el campo del ID", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         }
-        
+
     }
-    
+
     private String validarCampos() {
         if (txtNombres.getText().isEmpty()) {
             txtNombres.requestFocus();
             return "Nombre.";
         }
-        
+
         if (txtApellidos.getText().isEmpty()) {
             txtApellidos.requestFocus();
             return "Apellido.";
@@ -488,7 +510,7 @@ public class frmPersona extends javax.swing.JFrame {
             txtEdad.requestFocus();
             return "Edad.";
         }
-        
+
         try {
             Integer.parseInt(txtTelefono.getText());
             if (txtTelefono.getText().isEmpty() || txtTelefono.getText().length() != 9) {
@@ -498,10 +520,10 @@ public class frmPersona extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             return "Telefono solo ingresar Números.";
         }
-        
+
         return "";
     }
-    
+
     private void eliminarPersona() {
         String mensaje = "";
         int id = 0;
@@ -516,7 +538,7 @@ public class frmPersona extends javax.swing.JFrame {
                 bandera = true;
             }
         }
-        
+
         if (!bandera) {
             JOptionPane.showMessageDialog(rootPane, "Por ingresar un ID valido.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -526,18 +548,31 @@ public class frmPersona extends javax.swing.JFrame {
             this.limpiarCampos();
             this.mostrarTabla("");
         }
-        
+
     }
-    
+
     private void mostrarTabla(String nombres) {
         tbPersonaDao.listarPersona(jTable1, nombres);
     }
-    
+
     private void seleccionarFila(int fila) {
         txtId.setText(jTable1.getValueAt(fila, 0) + "");
         txtNombres.setText(jTable1.getValueAt(fila, 1).toString());
         txtApellidos.setText(jTable1.getValueAt(fila, 2).toString());
         txtEdad.setText(jTable1.getValueAt(fila, 3) + "");
         txtTelefono.setText(jTable1.getValueAt(fila, 4).toString());
+    }
+
+    private void buscarPorIdPersona() {
+        if (txtId.getText().trim().isBlank()) {
+            JOptionPane.showMessageDialog(rootPane, "El campo ID esta vacio.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            //- llamamos a la funcion
+            Tbpersona tbpersona = tbPersonaDao.buscarPersonaId(Integer.parseInt(txtId.getText()));
+            txtApellidos.setText(tbpersona.getApellidos());
+            txtEdad.setText(tbpersona.getEdad() + "");
+            txtNombres.setText(tbpersona.getNombres());
+            txtTelefono.setText(tbpersona.getTelefono());
+        }
     }
 }
