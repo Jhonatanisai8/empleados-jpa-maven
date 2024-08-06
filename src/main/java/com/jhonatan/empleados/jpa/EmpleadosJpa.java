@@ -1,11 +1,11 @@
 package com.jhonatan.empleados.jpa;
 
-import com.jhonatan.empleados.jpa.logica.TbPersonaDao;
+import com.jhonatan.empleados.jpa.iu.frmPersona;
 
 public class EmpleadosJpa {
     
     public static void main(String[] args) {
-        TbPersonaDao dao = new TbPersonaDao();
-        System.out.println(dao.eliminarPersona(9));
+        frmPersona  ven = new frmPersona();
+        ven.setVisible(true);
     }
 }
