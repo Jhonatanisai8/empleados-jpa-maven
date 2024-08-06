@@ -90,4 +90,14 @@ public class TbPersonaDao {
         return lista;
     }
 
+    public Tbpersona buscarPersonaId(int id) {
+        Tbpersona tbPersona;
+        EntityManager em = controller.getEntityManager();
+        Query query = em.createQuery("SELECT p FROM Tbpersona p WHERE p.idtbpersona = idtbpersona");
+        query.setParameter("idtbpersona", id);
+        
+        /*Casteamos a tipo persona*/
+        tbPersona = (Tbpersona) query.getSingleResult();
+        return tbpersona;
+    }
 }
