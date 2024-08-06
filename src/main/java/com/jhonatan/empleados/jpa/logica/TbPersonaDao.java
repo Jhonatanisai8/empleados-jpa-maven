@@ -56,7 +56,7 @@ public class TbPersonaDao {
             controller.destroy(id);
             mensaje = "eliminado persona correctamente ";
         } catch (Exception e) {
-            mensaje = "no se pudo eliminar";
+            mensaje = "El ID no existe: ";
             System.out.println("Error al eliminar " + e.getMessage());
         }
         return mensaje;
@@ -118,7 +118,7 @@ public class TbPersonaDao {
         List id = query.getResultList();
 
         String idIncrement = id.toString();
-        return idIncrement;
+        return idIncrement.replace("[", "").replace("]", "");
     }
 
 }
