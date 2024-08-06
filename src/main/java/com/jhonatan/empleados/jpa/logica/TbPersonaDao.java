@@ -107,4 +107,18 @@ public class TbPersonaDao {
         return tbPersona;
     }
 
+    /*
+     Mostrar ID Auto Incrementable en JtextField desde MySQL | Curso Java Swing JPA
+     */
+    public String idIncrementable() {
+        EntityManager em = controller.getEntityManager();
+        Query query = em.createNativeQuery("SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES "
+                + " WHERE TABLE_SCHEMA =  'empleado' "
+                + " AND TABLE_NAME = 'tbPersona';");
+        List id = query.getResultList();
+
+        String idIncrement = id.toString();
+        return idIncrement;
+    }
+
 }
