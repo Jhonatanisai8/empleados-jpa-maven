@@ -15,8 +15,9 @@ public class frmPersona extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Formulario de Persona");
         //this.setResizable(false);
-        this.mostrarCampo(false);
+        // this.mostrarCampo(false);
         this.mostrarTabla("");
+        this.limpiarCampos();
 
     }
 
@@ -216,7 +217,7 @@ public class frmPersona extends javax.swing.JFrame {
         btnEliminar1.setBackground(new java.awt.Color(133, 142, 156));
         btnEliminar1.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
         btnEliminar1.setForeground(new java.awt.Color(236, 239, 243));
-        btnEliminar1.setText("Eliminar");
+        btnEliminar1.setText("...");
         btnEliminar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminar1ActionPerformed(evt);
@@ -385,10 +386,7 @@ public class frmPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
-        char c = evt.getKeyChar();
-        if (c < '0' || c > '9') {
-            JOptionPane.showMessageDialog(null, "Solo Ingresar Números", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
-        }
+        //sout
     }//GEN-LAST:event_txtIdKeyTyped
 
     private void txtEdadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEdadKeyTyped
@@ -399,7 +397,7 @@ public class frmPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEdadKeyTyped
 
     private void txtIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIdMouseClicked
-        this.mostrarCampo(true);
+        //   this.mostrarCampo(true);
     }//GEN-LAST:event_txtIdMouseClicked
 
     private void btnLimpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarCamposActionPerformed
@@ -412,7 +410,7 @@ public class frmPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombresKeyReleased
 
     private void btnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar1ActionPerformed
-        // TODO add your handling code here:
+        this.mostrarTabla(txtNombres.getText());
     }//GEN-LAST:event_btnEliminar1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -471,9 +469,9 @@ public class frmPersona extends javax.swing.JFrame {
     }
 
     private void limpiarCampos() {
+        txtId.setText(tbPersonaDao.idIncrementable());
         txtApellidos.setText(null);
         txtEdad.setText(null);
-        txtId.setText(null);
         txtNombres.setText(null);
         txtTelefono.setText(null);
     }
@@ -531,27 +529,11 @@ public class frmPersona extends javax.swing.JFrame {
     private void eliminarPersona() {
         String mensaje = "";
         int id = 0;
-        boolean bandera = false;
-        if (txtApellidos.getText().isBlank()) {
-            bandera = true;
-        }
-        if (!txtId.getText().isBlank()) {
-            try {
-                id = Integer.parseInt(txtId.getText());
-            } catch (NumberFormatException e) {
-                bandera = true;
-            }
-        }
-
-        if (!bandera) {
-            JOptionPane.showMessageDialog(rootPane, "Por ingresar un ID valido.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            id = Integer.parseInt(txtId.getText());
-            String eliminarPersona = tbPersonaDao.eliminarPersona(id);
-            JOptionPane.showMessageDialog(rootPane, eliminarPersona.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
-            this.limpiarCampos();
-            this.mostrarTabla("");
-        }
+        id = Integer.parseInt(txtId.getText());
+        String eliminarPersona = tbPersonaDao.eliminarPersona(id);
+        JOptionPane.showMessageDialog(rootPane, eliminarPersona.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+        this.limpiarCampos();
+        this.mostrarTabla("");
 
     }
 
@@ -578,6 +560,8 @@ public class frmPersona extends javax.swing.JFrame {
                 txtEdad.setText(tbpersona.getEdad() + "");
                 txtNombres.setText(tbpersona.getNombres());
                 txtTelefono.setText(tbpersona.getTelefono());
+            } else {
+                this.limpiarCampos();
             }
         }
     }
