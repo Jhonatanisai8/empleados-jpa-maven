@@ -3,6 +3,7 @@
   <persistence-unit name="empleadosjpaPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.jhonatan.empleados.jpa.persistencia.Tbpersona</class>
+    <class>com.jhonatan.empleados.jpa.persistencia.Usuarios</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/empleado?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
