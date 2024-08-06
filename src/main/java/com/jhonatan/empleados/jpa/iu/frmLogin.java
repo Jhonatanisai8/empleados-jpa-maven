@@ -43,7 +43,7 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("Usuario: ");
 
-        txtUser.setFont(new java.awt.Font("Agency FB", 0, 17)); // NOI18N
+        txtUser.setFont(new java.awt.Font("Courier New", 0, 17)); // NOI18N
         txtUser.setForeground(new java.awt.Color(51, 51, 51));
         txtUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,7 +64,7 @@ public class frmLogin extends javax.swing.JFrame {
             }
         });
 
-        txtPaass.setFont(new java.awt.Font("Agency FB", 0, 17)); // NOI18N
+        txtPaass.setFont(new java.awt.Font("Courier New", 0, 17)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
