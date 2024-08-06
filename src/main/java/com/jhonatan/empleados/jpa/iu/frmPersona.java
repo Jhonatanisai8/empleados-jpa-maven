@@ -176,7 +176,9 @@ public class frmPersona extends javax.swing.JFrame {
             }
         });
 
+        jTable1.setBackground(new java.awt.Color(255, 255, 255));
         jTable1.setFont(new java.awt.Font("Comic Sans MS", 0, 15)); // NOI18N
+        jTable1.setForeground(new java.awt.Color(0, 0, 0));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -569,10 +571,12 @@ public class frmPersona extends javax.swing.JFrame {
         } else {
             //- llamamos a la funcion
             Tbpersona tbpersona = tbPersonaDao.buscarPersonaId(Integer.parseInt(txtId.getText()));
-            txtApellidos.setText(tbpersona.getApellidos());
-            txtEdad.setText(tbpersona.getEdad() + "");
-            txtNombres.setText(tbpersona.getNombres());
-            txtTelefono.setText(tbpersona.getTelefono());
+            if (tbpersona != null) {
+                txtApellidos.setText(tbpersona.getApellidos());
+                txtEdad.setText(tbpersona.getEdad() + "");
+                txtNombres.setText(tbpersona.getNombres());
+                txtTelefono.setText(tbpersona.getTelefono());
+            }
         }
     }
 }

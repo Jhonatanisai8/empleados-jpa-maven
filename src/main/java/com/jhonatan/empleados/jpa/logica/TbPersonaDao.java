@@ -2,9 +2,11 @@ package com.jhonatan.empleados.jpa.logica;
 
 import com.jhonatan.empleados.jpa.persistencia.Tbpersona;
 import com.jhonatan.empleados.jpa.persistencia.TbpersonaJpaController;
+import java.awt.HeadlessException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -91,11 +93,17 @@ public class TbPersonaDao {
     }
 
     public Tbpersona buscarPersonaId(int id) {
+        Tbpersona tbPersona = null;
         EntityManager em = controller.getEntityManager();
-        Query query = em.createQuery("SELECT p FROM Tbpersona p WHERE p.idtbpersona = :idtbpersona");
-        query.setParameter("idtbpersona", id);
+        try {
+            Query query = em.createQuery("SELECT p FROM Tbpersona p WHERE p.idtbpersona = :idtbpersona");
+            query.setParameter("idtbpersona", id);
+            tbPersona = (Tbpersona) query.getSingleResult();
 
-        Tbpersona tbPersona = (Tbpersona) query.getSingleResult();
+            JOptionPane.showMessageDialog(null, "Busqueda exictosa", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "El ID " + id + " no exite.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
+        }
         return tbPersona;
     }
 
