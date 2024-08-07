@@ -6,9 +6,9 @@ import com.jhonatan.empleados.jpa.persistencia.Tbpersona;
 import javax.swing.JOptionPane;
 
 public class frmPersona extends javax.swing.JFrame {
-
+    
     private TbPersonaDao tbPersonaDao = new TbPersonaDao();
-
+    
     public frmPersona() {
         initComponents();
         FlatMaterialLighterIJTheme.setup();
@@ -18,9 +18,9 @@ public class frmPersona extends javax.swing.JFrame {
         // this.mostrarCampo(false);
         this.mostrarTabla("");
         this.limpiarCampos();
-
+        
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -47,6 +47,7 @@ public class frmPersona extends javax.swing.JFrame {
         btnEliminar1 = new javax.swing.JButton();
         btnBuscarId = new javax.swing.JButton();
         btnEliminar2 = new javax.swing.JButton();
+        btnEliminar3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -245,6 +246,16 @@ public class frmPersona extends javax.swing.JFrame {
             }
         });
 
+        btnEliminar3.setBackground(new java.awt.Color(133, 142, 156));
+        btnEliminar3.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        btnEliminar3.setForeground(new java.awt.Color(236, 239, 243));
+        btnEliminar3.setText("Ver Combo");
+        btnEliminar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminar3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -291,10 +302,11 @@ public class frmPersona extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(42, 42, 42)
-                                        .addComponent(btnLimpiarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnEliminar2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(btnLimpiarCampos)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnEliminar2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnEliminar3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(28, 28, 28)))
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -341,7 +353,8 @@ public class frmPersona extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnLimpiarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEliminar2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnEliminar2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEliminar3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -444,10 +457,14 @@ public class frmPersona extends javax.swing.JFrame {
     private void btnEliminar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar2ActionPerformed
         this.cerrarSesion();
     }//GEN-LAST:event_btnEliminar2ActionPerformed
+
+    private void btnEliminar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar3ActionPerformed
+        this.verDatos();
+    }//GEN-LAST:event_btnEliminar3ActionPerformed
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         FlatMaterialLighterIJTheme.setup();
-
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new frmPersona().setVisible(true);
@@ -460,6 +477,7 @@ public class frmPersona extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEliminar1;
     private javax.swing.JButton btnEliminar2;
+    private javax.swing.JButton btnEliminar3;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiarCampos;
     private javax.swing.JButton btnModificar;
@@ -490,7 +508,7 @@ public class frmPersona extends javax.swing.JFrame {
         this.limpiarCampos();
         this.mostrarTabla("");
     }
-
+    
     private void limpiarCampos() {
         txtId.setText(tbPersonaDao.idIncrementable());
         txtApellidos.setText(null);
@@ -498,12 +516,12 @@ public class frmPersona extends javax.swing.JFrame {
         txtNombres.setText(null);
         txtTelefono.setText(null);
     }
-
+    
     private void mostrarCampo(boolean opcion) {
         txtId.setEnabled(opcion);
         jLabel1.setEnabled(opcion);
     }
-
+    
     private void modificar() {
         if (!txtId.getText().isBlank()) {
             int id = Integer.parseInt(txtId.getText());
@@ -518,15 +536,15 @@ public class frmPersona extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, "Por favor verificar el campo del ID", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         }
-
+        
     }
-
+    
     private String validarCampos() {
         if (txtNombres.getText().isEmpty()) {
             txtNombres.requestFocus();
             return "Nombre.";
         }
-
+        
         if (txtApellidos.getText().isEmpty()) {
             txtApellidos.requestFocus();
             return "Apellido.";
@@ -535,7 +553,7 @@ public class frmPersona extends javax.swing.JFrame {
             txtEdad.requestFocus();
             return "Edad.";
         }
-
+        
         try {
             Integer.parseInt(txtTelefono.getText());
             if (txtTelefono.getText().isEmpty() || txtTelefono.getText().length() != 9) {
@@ -545,10 +563,10 @@ public class frmPersona extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             return "Telefono solo ingresar Números.";
         }
-
+        
         return "";
     }
-
+    
     private void eliminarPersona() {
         String mensaje = "";
         int id = 0;
@@ -557,13 +575,13 @@ public class frmPersona extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, eliminarPersona.toUpperCase(), "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
         this.limpiarCampos();
         this.mostrarTabla("");
-
+        
     }
-
+    
     private void mostrarTabla(String nombres) {
         tbPersonaDao.listarPersona(jTable1, nombres);
     }
-
+    
     private void seleccionarFila(int fila) {
         txtId.setText(jTable1.getValueAt(fila, 0) + "");
         txtNombres.setText(jTable1.getValueAt(fila, 1).toString());
@@ -571,7 +589,7 @@ public class frmPersona extends javax.swing.JFrame {
         txtEdad.setText(jTable1.getValueAt(fila, 3) + "");
         txtTelefono.setText(jTable1.getValueAt(fila, 4).toString());
     }
-
+    
     private void buscarPorIdPersona() {
         if (txtId.getText().trim().isBlank()) {
             JOptionPane.showMessageDialog(rootPane, "El campo ID esta vacio.", "ATENCIÓN", JOptionPane.INFORMATION_MESSAGE);
@@ -588,14 +606,20 @@ public class frmPersona extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private void cerrarSesion() {
         this.dispose();
         d();
     }
-
+    
     public static void d() {
         frmLogin d = new frmLogin();
         d.setVisible(true);
+    }
+    
+    private void verDatos() {
+        this.dispose();
+        frmomboBoxPersona e = new frmomboBoxPersona();
+        e.setVisible(true);
     }
 }
