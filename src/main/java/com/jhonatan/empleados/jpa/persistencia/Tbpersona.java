@@ -97,10 +97,8 @@ public class Tbpersona implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idtbpersona != null ? idtbpersona.hashCode() : 0);
-        return hash;
+    public String toString() {
+        return  nombres + " " + apellidos;
     }
-
+    
 }

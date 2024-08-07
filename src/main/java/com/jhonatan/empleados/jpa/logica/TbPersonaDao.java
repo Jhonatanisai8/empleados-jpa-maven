@@ -3,9 +3,11 @@ package com.jhonatan.empleados.jpa.logica;
 import com.jhonatan.empleados.jpa.persistencia.Tbpersona;
 import com.jhonatan.empleados.jpa.persistencia.TbpersonaJpaController;
 import java.awt.HeadlessException;
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -119,6 +121,21 @@ public class TbPersonaDao {
 
         String idIncrement = id.toString();
         return idIncrement.replace("[", "").replace("]", "");
+    }
+
+    public void getPersonasCMB(JComboBox<Tbpersona> cbxPersona) {
+        EntityManager em = controller.getEntityManager();
+        List<Tbpersona> personas = null;
+        try {
+            personas = em.createQuery("SELECT p FROM Tbpersona p", Tbpersona.class).getResultList();
+            for (Tbpersona per : personas) {
+                cbxPersona.addItem(per);
+            }
+        } catch (Exception e) {
+            System.out.println("No se pueden mostrar los datos en el combo box: " + e.getMessage());
+        } finally {
+            em.close();
+        }
     }
 
 }
